@@ -22,3 +22,19 @@ In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no pari
 ### Polling:
 
 The simplest but least efficient method for UART. Polling blocks the CPU until the UART is finished recieving or transmitting data.
+
+Polling Code:
+  
+  uint8_t TX_Buffer[] = "Hello World!\r\n";
+  
+  uint8_t RX_Buffer[8];
+
+  HAL_UART_Transmit(&huart2,TX_Buffer,sizeof(TX_Buffer),1000); // "Hello World!"
+  
+  HAL_UART_Receive(&huart2, RX_Buffer, 8, 5000);               // "Goodbye!"
+ 
+Both HAL polling transmit and recieve functions use similar arguments. First, address variable &huart2 is the UART handle for our enabled USART2. Then, the buffer, size of the buffer in bytes, and the allowed blocking time of the function in ms. 
+
+To further understand these two functions read the STM32F4 HAL User Manual: https://www.st.com/resource/en/user_manual/dm00105879-description-of-stm32f4-hal-and-ll-drivers-stmicroelectronics.pdf. Or, highlight the function inside STM32Cube IDE and right-click to open-declaration. which will bring you to the UART HAL module driver.
+
+
