@@ -2,6 +2,14 @@
 
 Communicate between microcontroller and PC using UART.
 
+## Table of Contents
+
+- [Universal Asynchronous Reciever-Trasnmitter (UART)](#UART)
+- [STM32CubeMX (Initialization Code Generator GUI)](#STM32CubeMX)
+- [Polling Method](#Polling Method)
+- [Interrupt Method](#Interrupt Method)
+- [DMA Method](#DMA Method)
+
 ### Universal Asynchronous Reciever-Trasnmitter (UART)
 
 Unlike, SPI which is a communication protocol, the UART is a physical circuit inside the STM32 microcontroller. UART allows for asynchronous communication between two devices using two wires. In this project, we cover three methods of UART: polling, interrupt, and DMA. 
