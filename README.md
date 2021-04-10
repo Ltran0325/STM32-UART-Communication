@@ -12,14 +12,14 @@ Source: Scott Campbell -- https://www.circuitbasics.com/basics-uart-communicatio
 
 Data from the UART is sent and recieved as a packet.
 
-### STM32CubeMX
+### STM32CubeMX (Initialization Code Generator GUI)
 
 
 <img src="https://user-images.githubusercontent.com/62213019/114250042-3a08fb80-9951-11eb-89cf-6784db620426.png" width="624" height="351">
 
 In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no parity bit, and 1 stop bit.
 
-### Polling:
+### Polling Method:
 
 The simplest but least efficient method for UART. Polling blocks the CPU until the UART is finished recieving or transmitting data.
 
@@ -37,7 +37,13 @@ Both HAL polling transmit and recieve functions use similar arguments. First, ad
 
 To further understand these two functions read the STM32F4 HAL User Manual: https://www.st.com/resource/en/user_manual/dm00105879-description-of-stm32f4-hal-and-ll-drivers-stmicroelectronics.pdf. Or, highlight the function inside STM32Cube IDE and right-click to open-declaration. which will bring you to the UART HAL module driver.
 
-![image](https://user-images.githubusercontent.com/62213019/114251405-b7366f80-9955-11eb-9f39-f657c35abb32.png)
-
 MCU sends "Hello World!" to PC. PC returns "Goodbye!" to MCU.
 Hercules SETUP is used to handle PC UART.
+
+### Interrupt Method:
+
+-In Progress-
+
+### DMA Method:
+
+-In Progress-
