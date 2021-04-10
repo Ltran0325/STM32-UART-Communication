@@ -41,7 +41,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
-
+              
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
