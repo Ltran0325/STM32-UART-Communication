@@ -12,6 +12,12 @@ Source: Scott Campbell -- https://www.circuitbasics.com/basics-uart-communicatio
 
 Data from the UART is sent and recieved as a packet.
 
+Example:
+
+![image](https://user-images.githubusercontent.com/62213019/114283842-d0482a80-9a00-11eb-922a-ee05509c31a3.png)
+
+Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
+
 ### STM32CubeMX (Initialization Code Generator GUI)
 
 
@@ -45,7 +51,24 @@ To further understand these two functions read the STM32F4 HAL User Manual: http
 
 ### Interrupt Method:
 
--In Progress-
+The interrupt method is non-blocking, meaning that recieve/transmit completion will be indicated through interrupt. 
+Since we are using interrupts, the NVIC must be configured.
+
+<img src="https://user-images.githubusercontent.com/62213019/114283354-2bc4e900-99fe-11eb-8480-441aa23e4fa2.png" width="468" height="263">
+
+Interrupt Code:
+
+  HAL_UART_Receive_IT(&huart2, RX_Buffer, sizeof(RX_Buffer));   // Recieve data from PC
+  HAL_UART_Transmit_IT(&huart2, TX_Buffer, sizeof(TX_Buffer));  // Transmit data to PC
+ 
+When data the size of RX_Buffer is recieved via UART, the HAL_UART_RxCpltCallback interrupt is called by the HAL_UART_IRQ_Handler.
+
+  void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+  {
+	  __NOP(); // for debugging
+  }
+
+Completion of data transfer is handled in similar fashion.
 
 ### DMA Method:
 
