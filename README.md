@@ -2,15 +2,7 @@
 
 Communicate between microcontroller and PC using UART.
 
-## Table of Contents
-
-- [Universal Asynchronous Reciever-Trasnmitter (UART)](#UART)
-- [STM32CubeMX (Initialization Code Generator GUI)](#STM32CubeMX)
-- [Polling Method](#Polling Method)
-- [Interrupt Method](#Interrupt Method)
-- [DMA Method](#DMA Method)
-
-### Universal Asynchronous Reciever-Trasnmitter (UART)
+## Universal Asynchronous Reciever-Trasnmitter (UART)
 
 Unlike, SPI which is a communication protocol, the UART is a physical circuit inside the STM32 microcontroller. UART allows for asynchronous communication between two devices using two wires. In this project, we cover three methods of UART: polling, interrupt, and DMA. 
 
@@ -26,14 +18,14 @@ Example:
 
 Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
 
-### STM32CubeMX (Initialization Code Generator GUI)
+## STM32CubeMX (Initialization Code Generator GUI)
 
 
 <img src="https://user-images.githubusercontent.com/62213019/114250042-3a08fb80-9951-11eb-89cf-6784db620426.png" width="624" height="351">
 
 In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no parity bit, and 1 stop bit.
 
-### Polling Method:
+## Polling Method:
 
 The simplest but least efficient method for UART. Polling blocks the CPU until the UART is finished recieving or transmitting data.
 
@@ -58,7 +50,7 @@ To further understand these two functions read the STM32F4 HAL User Manual: http
 
 
 
-### Interrupt Method:
+## Interrupt Method:
 
 The interrupt method is non-blocking, meaning that recieve/transmit completion will be indicated through interrupt. 
 Since we are using interrupts, the NVIC must be configured.
@@ -79,6 +71,6 @@ When data the size of RX_Buffer is recieved via UART, the HAL_UART_RxCpltCallbac
 ```
 Completion of data transfer is handled in similar fashion.
 
-### DMA Method:
+## DMA Method:
 
 -In Progress-
