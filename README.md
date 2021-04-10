@@ -32,13 +32,16 @@ Polling Code:
   HAL_UART_Transmit(&huart2,TX_Buffer,sizeof(TX_Buffer),1000); // "Hello World!"
   
   HAL_UART_Receive(&huart2, RX_Buffer, 8, 5000);               // "Goodbye!"
+  
+Purpose:
+
+MCU sends "Hello World!" to PC. PC returns "Goodbye!" to MCU. Hercules SETUP is used to handle PC UART.
  
 Both HAL polling transmit and recieve functions use similar arguments. First, address variable &huart2 is the UART handle for our enabled USART2. Then, the buffer, size of the buffer in bytes, and the allowed blocking time of the function in ms. 
 
 To further understand these two functions read the STM32F4 HAL User Manual: https://www.st.com/resource/en/user_manual/dm00105879-description-of-stm32f4-hal-and-ll-drivers-stmicroelectronics.pdf. Or, highlight the function inside STM32Cube IDE and right-click to open-declaration. which will bring you to the UART HAL module driver.
 
-MCU sends "Hello World!" to PC. PC returns "Goodbye!" to MCU.
-Hercules SETUP is used to handle PC UART.
+
 
 ### Interrupt Method:
 
