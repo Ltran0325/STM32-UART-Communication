@@ -37,4 +37,6 @@ Both HAL polling transmit and recieve functions use similar arguments. First, ad
 
 To further understand these two functions read the STM32F4 HAL User Manual: https://www.st.com/resource/en/user_manual/dm00105879-description-of-stm32f4-hal-and-ll-drivers-stmicroelectronics.pdf. Or, highlight the function inside STM32Cube IDE and right-click to open-declaration. which will bring you to the UART HAL module driver.
 
+<img src="https://user-images.githubusercontent.com/62213019/114251405-b7366f80-9955-11eb-9f39-f657c35abb32.png" width="800" height="480">
 
+MCU sends "Hello World!" to PC. PC returns "Goodbye!" to MCU.
