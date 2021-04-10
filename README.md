@@ -30,7 +30,7 @@ In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no pari
 The simplest but least efficient method for UART. Polling blocks the CPU until the UART is finished recieving or transmitting data.
 
 Polling Code:
-  
+```c
   uint8_t TX_Buffer[] = "Hello World!\r\n";
   
   uint8_t RX_Buffer[8];
@@ -38,6 +38,7 @@ Polling Code:
   HAL_UART_Transmit(&huart2,TX_Buffer,sizeof(TX_Buffer),1000); // "Hello World!"
   
   HAL_UART_Receive(&huart2, RX_Buffer, 8, 5000);               // "Goodbye!"
+```
   
 Purpose:
 
@@ -57,17 +58,17 @@ Since we are using interrupts, the NVIC must be configured.
 <img src="https://user-images.githubusercontent.com/62213019/114283354-2bc4e900-99fe-11eb-8480-441aa23e4fa2.png" width="468" height="263">
 
 Interrupt Code:
-
+```c
   HAL_UART_Receive_IT(&huart2, RX_Buffer, sizeof(RX_Buffer));   // Recieve data from PC
   HAL_UART_Transmit_IT(&huart2, TX_Buffer, sizeof(TX_Buffer));  // Transmit data to PC
- 
+ ```
 When data the size of RX_Buffer is recieved via UART, the HAL_UART_RxCpltCallback interrupt is called by the HAL_UART_IRQ_Handler.
-
+```c
   void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   {
 	  __NOP(); // for debugging
   }
-
+```
 Completion of data transfer is handled in similar fashion.
 
 ### DMA Method:
