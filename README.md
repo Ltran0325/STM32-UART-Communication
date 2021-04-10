@@ -14,7 +14,7 @@ Data from the UART is sent and recieved as a packet.
 
 Example:
 
-![image](https://user-images.githubusercontent.com/62213019/114283842-d0482a80-9a00-11eb-922a-ee05509c31a3.png)
+![image](https://user-images.githubusercontent.com/62213019/114283937-6aa86e00-9a01-11eb-8843-d9c3c9f23a1a.png)
 
 Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
 
