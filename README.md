@@ -69,7 +69,7 @@ When data the size of RX_Buffer is recieved via UART, the HAL_UART_RxCpltCallbac
 	  __NOP(); // for debugging
   }
 ```
-Completion of data transfer is handled in similar fashion.
+Completion of data transmit is handled in similar fashion.
 
 ## DMA Method:
 
