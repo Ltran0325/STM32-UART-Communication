@@ -73,7 +73,7 @@ Completion of data transmit is handled in similar fashion.
 
 ## DMA Method:
 
-The DMA method is the most efficient method for saving CPU cycles. The DMA method offloads the data transfer process to the device's DMA controller instead of the CPU.
+The DMA method is the most efficient method for saving CPU cycles. This method offloads the data transfer process to the device's DMA controller instead of the CPU. The DMA is especially useful when data is transferred in quick bursts which would otherwise be handled by rapid interrupt calls.
 
  ![image](https://user-images.githubusercontent.com/62213019/114440221-baf90a80-9b7e-11eb-8a0e-417cfbf72be0.png)
 
