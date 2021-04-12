@@ -55,7 +55,7 @@ To further understand these two functions read the STM32F4 HAL User Manual: http
 The interrupt method is non-blocking, meaning that recieve/transmit completion will be indicated through interrupt. 
 Since we are using interrupts, the NVIC must be configured.
 
-<img src="https://user-images.githubusercontent.com/62213019/114283354-2bc4e900-99fe-11eb-8480-441aa23e4fa2.png" width="468" height="263">
+<img src="https://user-images.githubusercontent.com/62213019/114441498-53dc5580-9b80-11eb-8b8b-1e4032788eed.png" width="468" height="263">
 
 Interrupt method code:
 ```c
