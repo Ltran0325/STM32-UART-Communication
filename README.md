@@ -29,7 +29,7 @@ In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no pari
 
 The simplest but least efficient method for UART. Polling blocks the CPU until the UART is finished recieving or transmitting data.
 
-Polling Code:
+Polling method code:
 ```c
   uint8_t TX_Buffer[] = "Hello World!\r\n";
   
@@ -57,7 +57,7 @@ Since we are using interrupts, the NVIC must be configured.
 
 <img src="https://user-images.githubusercontent.com/62213019/114283354-2bc4e900-99fe-11eb-8480-441aa23e4fa2.png" width="468" height="263">
 
-Interrupt Code:
+Interrupt method code:
 ```c
   HAL_UART_Receive_IT(&huart2, RX_Buffer, sizeof(RX_Buffer));   // Recieve data from PC
   HAL_UART_Transmit_IT(&huart2, TX_Buffer, sizeof(TX_Buffer));  // Transmit data to PC
@@ -70,3 +70,23 @@ When data the size of RX_Buffer is recieved via UART, the HAL_UART_RxCpltCallbac
   }
 ```
 Completion of data transmit is handled in similar fashion.
+
+## DMA Method:
+
+The DMA method is the most efficient method for saving CPU cycles. The DMA method offloads the data transfer process to the device's DMA controller instead of the CPU.
+
+ ![image](https://user-images.githubusercontent.com/62213019/114440221-baf90a80-9b7e-11eb-8a0e-417cfbf72be0.png)
+
+Source: Yasen Stoyanov -- https://open4tech.com/direct-memory-access-dma-in-embedded-systems/
+
+To configure the DMA, enable USART2_RX and USART2_TX in STMCubeMX
+
+<img src="https://user-images.githubusercontent.com/62213019/114440955-a49f7e80-9b7f-11eb-99c6-1ac076f23d09.png" width="468" height="263">
+
+DMA method code:
+
+```c
+  HAL_UART_Receive_DMA(&huart2, RX_Buffer, sizeof(RX_Buffer));   // Recieve data from PC
+  HAL_UART_Transmit_DMA(&huart2, TX_Buffer, sizeof(TX_Buffer));  // Transmit data to PC
+ ```
+
