@@ -4,9 +4,13 @@ Communicate between microcontroller and PC using UART.
 
 ## UART DMA RTOS Demo:
 
+Call UART DMA recieve and transmit as separate threads.
+
 https://youtu.be/-7uY81sGWOA
 
-Call UART DMA recieve and transmit as separate threads.
+Code:
+
+https://github.com/Ltran0325/STM32-UART-Communication/blob/main/STM32_UART_DMA_RTOS.c
 
 ## Universal Asynchronous Reciever-Trasnmitter (UART)
 
