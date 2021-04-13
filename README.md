@@ -2,7 +2,7 @@
 
 Communicate between microcontroller and PC using UART.
 
-## UART DMA RTOS Demo:
+## UART DMA FreeRTOS Demo:
 
 Call UART DMA recieve and transmit as separate threads.
 
