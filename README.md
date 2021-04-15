@@ -120,9 +120,9 @@ Program USART2 interrupt request handler. Disable RX interrupt after message is 
 
 Disable IRQ handler when finished.
 
-![image](https://user-images.githubusercontent.com/62213019/114815032-34a11c00-9d6a-11eb-8abe-cd75940a1dd5.png)
+![image](https://user-images.githubusercontent.com/62213019/114908366-e2471600-9dd0-11eb-9f4f-8b39a2d9fa55.png)
 
-Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
+Board recieves and returns "Hello!". ( PC <--> Nucleo-board)
 
 ## UART With HAL UART Module Driver:
 
