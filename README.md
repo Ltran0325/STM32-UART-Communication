@@ -81,7 +81,7 @@ static void MX_USART2_UART_Init(void)
 }
 ```
 
-### 3) Program USART2 interrupt request handler. Disable USART2_IRQHandler when finished. 
+### 3) Program USART2 interrupt request handler.
 
 ```c
 void USART2_IRQHandler(void)
