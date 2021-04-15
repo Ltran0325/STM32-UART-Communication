@@ -83,7 +83,7 @@ USART2 initialization. Enable USART2 recieve interrupt.
 void USART2_IRQHandler(void)
 {
 	// if receive buffer full
-	if(USART2->ISR && USART_ISR_RXNE){
+	if( USART2->ISR & USART_ISR_RXNE ){
 
 		// move byte from buffer to message
 		if(Rx_count < MAX){
@@ -93,14 +93,14 @@ void USART2_IRQHandler(void)
 
 		// if message receive complete
 		if(Rx_count >= MAX){
-			USART2->CR1 &= ~USART_CR1_RXNEIE;  // disable RX interrupt
-			USART2->CR1 |= USART_CR1_TXEIE;    // enable TX interrupt
+			USART2->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_RE);  // disable RX interrupt
+			USART2->CR1 |= USART_CR1_TXEIE; // enable TX interrupt
 		}
 
 	}
 
 	// if byte ready to transfer
-	if(USART2->ISR && USART_ISR_TC){
+	if(USART2->ISR & USART_ISR_TC){
 
 		// send  byte to TDR
 		if(Tx_count < MAX){
