@@ -2,17 +2,59 @@
 
 Communicate between microcontroller and PC using UART.
 
-## UART DMA FreeRTOS Demo:
+## UART Interrupt Method Without HAL:
 
-Call UART DMA recieve and transmit as separate threads.
+```c
+#define MAX 6
 
-https://youtu.be/-7uY81sGWOA
+uint8_t message[MAX];
+uint8_t Tx_count = 0;
+uint8_t Rx_count = 0;
 
-Code:
+USART2->CR1 |= USART_CR1_RXNEIE; // enable receive interrupt
 
-https://github.com/Ltran0325/STM32-UART-Communication/blob/main/STM32_UART_DMA_RTOS.c
+void USART2_IRQHandler(void)
+{
+	
+	// if receive buffer full
+	if(USART2->ISR && USART_ISR_RXNE){ 
+		
+		// move byte from buffer to message
+		if(Rx_count < MAX){
+		message[Rx_count] = USART2->RDR & 0x0FF; // reading RDR clears RXNE flag
+		Rx_count++;
+		}
+		
+		// if message receive complete
+		if(Rx_count >= MAX){
+			USART2->CR1 &= ~USART_CR1_RXNEIE;  // disable RX interrupt
+			USART2->CR1 |= USART_CR1_TXEIE;    // enable TX interrupt
+		}
 
-## Universal Asynchronous Reciever-Transmitter (UART)
+	}
+
+	// if byte ready to transfer
+	if(USART2->ISR && USART_ISR_TC){
+		
+		// send  byte to TDR
+		if(Tx_count < MAX){
+			USART2->TDR = message[Tx_count]; // write to TDR (clears TC bit)
+			Tx_count++;
+		}
+		
+		// if message transfer complete
+		if(Tx_count >= MAX){
+			USART2->CR1 &= ~USART_CR1_TXEIE; // disable TX interrupt
+		}
+	}
+
+}
+```
+
+![image](https://user-images.githubusercontent.com/62213019/114815032-34a11c00-9d6a-11eb-8abe-cd75940a1dd5.png)
+
+
+## Universal Asynchronous Reciever-Transmitter (UART):
 
 Unlike SPI which is a communication protocol, the UART is a physical circuit inside the STM32 microcontroller. UART allows for asynchronous communication between two devices using two wires. In this project, we cover UART via polling, interrupt, DMA, and DMA RTOS.
 
@@ -28,14 +70,16 @@ Example:
 
 Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
 
-## STM32CubeMX (Initialization Code Generator GUI)
+## STM32CubeMX (Initialization Code Generator GUI):
 
 
 <img src="https://user-images.githubusercontent.com/62213019/114250042-3a08fb80-9951-11eb-89cf-6784db620426.png" width="624" height="351">
 
 In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no parity bit, and 1 stop bit.
 
-## Polling Method:
+## UART With HAL
+
+### Polling Method:
 
 The simplest but least efficient method for UART. Polling blocks the CPU until the UART is finished recieving or transmitting data.
 
@@ -60,7 +104,7 @@ To further understand these two functions read the STM32F4 HAL User Manual: http
 
 
 
-## Interrupt Method:
+### Interrupt Method:
 
 The interrupt method is non-blocking, meaning that recieve/transmit completion will be indicated through interrupt. 
 Since we are using interrupts, the NVIC must be configured.
@@ -81,7 +125,7 @@ When data the size of RX_Buffer is recieved via UART, the HAL_UART_RxCpltCallbac
 ```
 Completion of data transmit is handled in similar fashion.
 
-## DMA Method:
+### DMA Method:
 
 The DMA method is the most efficient method for saving CPU cycles. This method offloads the data transfer process to the device's DMA controller instead of the CPU. The DMA is especially useful when data is transferred in quick bursts which would otherwise be handled by rapid interrupt calls.
 
