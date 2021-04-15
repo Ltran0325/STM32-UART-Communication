@@ -21,7 +21,6 @@ In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no pari
 
 ## UART Interrupt Method Without HAL UART Module Driver:
 
-Recieve and return message via UART interrupt.
 
 ```c
 #define MAX 6
@@ -44,7 +43,7 @@ int main(void){
 }
 ```
 
-USART2 initialization. Enable USART2 recieve interrupt.
+Recieve and return message via UART interrupt.
 
 ```c
 static void MX_USART2_UART_Init(void)
@@ -78,10 +77,7 @@ static void MX_USART2_UART_Init(void)
 }
 ```
 
-Program USART2 interrupt request handler. Disable RX interrupt after message is recieved. Then, enable TX interrupt. 
-
-Disable IRQ handler when finished.
-
+USART2 initialization. Enable USART2 recieve interrupt.
 
 ```c
 void USART2_IRQHandler(void)
@@ -119,6 +115,10 @@ void USART2_IRQHandler(void)
 	}
 }
 ```
+
+Program USART2 interrupt request handler. Disable RX interrupt after message is recieved. Then, enable TX interrupt. 
+
+Disable IRQ handler when finished.
 
 ![image](https://user-images.githubusercontent.com/62213019/114815032-34a11c00-9d6a-11eb-8abe-cd75940a1dd5.png)
 
