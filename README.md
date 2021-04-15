@@ -86,7 +86,7 @@ static void MX_USART2_UART_Init(void)
 ```c
 void USART2_IRQHandler(void)
 {
-	// if receive buffer full
+	// if receive buffer ready to read
 	if( USART2->ISR & USART_ISR_RXNE ){
 
 		// move byte from buffer to message
