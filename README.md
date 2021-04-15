@@ -1,6 +1,6 @@
 # STM32-UART-Communication
 
-Communicate between microcontroller and PC using UART.
+Communicate between microcontroller and PC using UART. With and without HAL driver library.
 
 ## Universal Asynchronous Reciever-Transmitter (UART):
 
