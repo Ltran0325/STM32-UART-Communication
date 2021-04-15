@@ -27,9 +27,11 @@ In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no pari
 ```c
 #define MAX 6
 
-uint8_t message[MAX];
-uint8_t Tx_count = 0;
+uint8_t transmit[MAX] = "Hello!";
+uint8_t receive[MAX];
+
 uint8_t Rx_count = 0;
+uint8_t Tx_count = 0;
 
 int main(void){
 
@@ -73,7 +75,7 @@ static void MX_USART2_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART2_Init 2 */
-  USART2->CR1 |= USART_CR1_RXNEIE; // enable receive interrupt
+  USART2->CR1 |= USART_CR1_RXNEIE | USART_CR1_TXEIE; // enable RX/TX interrupt
   /* USER CODE END USART2_Init 2 */
 
 }
