@@ -2,6 +2,29 @@
 
 Communicate between microcontroller and PC using UART.
 
+## Universal Asynchronous Reciever-Transmitter (UART):
+
+Unlike SPI which is a communication protocol, the UART is a physical circuit inside the STM32 microcontroller. UART allows for asynchronous communication between two devices using two wires. In this project, we cover UART via polling, interrupt, DMA, and DMA RTOS.
+
+![image](https://user-images.githubusercontent.com/62213019/114249000-214b1680-994e-11eb-86c1-71296ad0ecb9.png)
+
+Source: Scott Campbell -- https://www.circuitbasics.com/basics-uart-communication/
+
+Data from the UART is sent and recieved as a packet.
+
+Example:
+
+![image](https://user-images.githubusercontent.com/62213019/114283937-6aa86e00-9a01-11eb-8843-d9c3c9f23a1a.png)
+
+Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
+
+## STM32CubeMX (Initialization Code Generator GUI):
+
+
+<img src="https://user-images.githubusercontent.com/62213019/114250042-3a08fb80-9951-11eb-89cf-6784db620426.png" width="624" height="351">
+
+In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no parity bit, and 1 stop bit.
+
 ## UART Interrupt Method Without HAL:
 
 ```c
@@ -52,30 +75,6 @@ void USART2_IRQHandler(void)
 ```
 
 ![image](https://user-images.githubusercontent.com/62213019/114815032-34a11c00-9d6a-11eb-8abe-cd75940a1dd5.png)
-
-
-## Universal Asynchronous Reciever-Transmitter (UART):
-
-Unlike SPI which is a communication protocol, the UART is a physical circuit inside the STM32 microcontroller. UART allows for asynchronous communication between two devices using two wires. In this project, we cover UART via polling, interrupt, DMA, and DMA RTOS.
-
-![image](https://user-images.githubusercontent.com/62213019/114249000-214b1680-994e-11eb-86c1-71296ad0ecb9.png)
-
-Source: Scott Campbell -- https://www.circuitbasics.com/basics-uart-communication/
-
-Data from the UART is sent and recieved as a packet.
-
-Example:
-
-![image](https://user-images.githubusercontent.com/62213019/114283937-6aa86e00-9a01-11eb-8843-d9c3c9f23a1a.png)
-
-Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
-
-## STM32CubeMX (Initialization Code Generator GUI):
-
-
-<img src="https://user-images.githubusercontent.com/62213019/114250042-3a08fb80-9951-11eb-89cf-6784db620426.png" width="624" height="351">
-
-In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no parity bit, and 1 stop bit.
 
 ## UART With HAL
 
