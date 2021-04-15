@@ -91,8 +91,8 @@ void USART2_IRQHandler(void)
 
 		// move byte from buffer to message
 		if(Rx_count < MAX){
-		receive[Rx_count] = USART2->RDR & 0x0FF; // reading RDR clears RXNE flag
-		Rx_count++;
+			receive[Rx_count] = USART2->RDR & 0x0FF; // reading RDR clears RXNE flag
+			Rx_count++;
 		}
 
 	}
