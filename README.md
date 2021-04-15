@@ -89,14 +89,8 @@ void USART2_IRQHandler(void)
 
 		// move byte from buffer to message
 		if(Rx_count < MAX){
-		message[Rx_count] = USART2->RDR & 0x0FF; // reading RDR clears RXNE flag
+		receive[Rx_count] = USART2->RDR & 0x0FF; // reading RDR clears RXNE flag
 		Rx_count++;
-		}
-
-		// if message receive complete
-		if(Rx_count >= MAX){
-			USART2->CR1 &= ~(USART_CR1_RXNEIE | USART_CR1_RE);  // disable RX interrupt
-			USART2->CR1 |= USART_CR1_TXEIE; // enable TX interrupt
 		}
 
 	}
@@ -106,23 +100,21 @@ void USART2_IRQHandler(void)
 
 		// send  byte to TDR
 		if(Tx_count < MAX){
-			USART2->TDR = message[Tx_count]; // write to TDR (clears TC bit)
+			USART2->TDR = transmit[Tx_count]; // write to TDR (clears TC bit)
 			Tx_count++;
 		}
 
-		// if message transfer complete
-		if(Tx_count >= MAX){
-			NVIC_DisableIRQ(USART2_IRQn);	// disable usart2 handler
-		}
 	}
+
 }
 ```
 
 ### 4) Run the program. 
 
-Board recieves and returns "Hello!". ( PC <--> Nucleo-board)
+Board transmits "Hello!" and recieves "Return".
 
-![image](https://user-images.githubusercontent.com/62213019/114908366-e2471600-9dd0-11eb-9f4f-8b39a2d9fa55.png)
+![image](https://user-images.githubusercontent.com/62213019/114915969-1f170b00-9dd9-11eb-9923-ca81e076e8c4.png)
+
 
 
 
