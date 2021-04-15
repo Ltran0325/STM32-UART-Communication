@@ -12,12 +12,6 @@ Source: Scott Campbell -- https://www.circuitbasics.com/basics-uart-communicatio
 
 Data from the UART is sent and recieved as a packet.
 
-Example:
-
-![image](https://user-images.githubusercontent.com/62213019/114283937-6aa86e00-9a01-11eb-8843-d9c3c9f23a1a.png)
-
-Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
-
 ## STM32CubeMX (Initialization Code Generator GUI):
 
 
@@ -25,7 +19,7 @@ Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt m
 
 In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no parity bit, and 1 stop bit.
 
-## UART Interrupt Method Without HAL UART module driver:
+## UART Interrupt Method Without HAL UART Module Driver:
 
 Recieve and return message via UART interrupt.
 
@@ -128,7 +122,9 @@ void USART2_IRQHandler(void)
 
 ![image](https://user-images.githubusercontent.com/62213019/114815032-34a11c00-9d6a-11eb-8abe-cd75940a1dd5.png)
 
-## UART With HAL
+Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt method. PC returns "Interrupt!" to Nucleo-board which is captured inside the RX_Buffer. Hercules SETUP is used to handle UART on the PC side.
+
+## UART With HAL UART Module Driver:
 
 ### Polling Method:
 
