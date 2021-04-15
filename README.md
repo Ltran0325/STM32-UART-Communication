@@ -25,7 +25,9 @@ Data "Hello World" is transmitted from Nucleo-board to PC using UART interrupt m
 
 In STM32CubeMX, enable USART2. Set buad rate to 9600 bit/s, 8 data bits, no parity bit, and 1 stop bit.
 
-## UART Interrupt Method Without HAL:
+## UART Interrupt Method Without HAL UART module driver:
+
+Recieve and return message via UART interrupt.
 
 ```c
 #define MAX 6
@@ -34,20 +36,71 @@ uint8_t message[MAX];
 uint8_t Tx_count = 0;
 uint8_t Rx_count = 0;
 
-USART2->CR1 |= USART_CR1_RXNEIE; // enable receive interrupt
+int main(void){
 
+	HAL_Init();
+	SystemClock_Config();
+	MX_GPIO_Init();
+	MX_USART2_UART_Init();
+
+	while(1){
+
+	}
+
+}
+```
+
+USART2 initialization. Enable USART2 recieve interrupt.
+
+```c
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 9600;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+  USART2->CR1 |= USART_CR1_RXNEIE; // enable receive interrupt
+  /* USER CODE END USART2_Init 2 */
+
+}
+```
+
+Program USART2 interrupt request handler. Disable RX interrupt after message is recieved. Then, enable TX interrupt. 
+
+Disable IRQ handler when finished.
+
+
+```c
 void USART2_IRQHandler(void)
 {
-	
 	// if receive buffer full
-	if(USART2->ISR && USART_ISR_RXNE){ 
-		
+	if(USART2->ISR && USART_ISR_RXNE){
+
 		// move byte from buffer to message
 		if(Rx_count < MAX){
 		message[Rx_count] = USART2->RDR & 0x0FF; // reading RDR clears RXNE flag
 		Rx_count++;
 		}
-		
+
 		// if message receive complete
 		if(Rx_count >= MAX){
 			USART2->CR1 &= ~USART_CR1_RXNEIE;  // disable RX interrupt
@@ -58,19 +111,18 @@ void USART2_IRQHandler(void)
 
 	// if byte ready to transfer
 	if(USART2->ISR && USART_ISR_TC){
-		
+
 		// send  byte to TDR
 		if(Tx_count < MAX){
 			USART2->TDR = message[Tx_count]; // write to TDR (clears TC bit)
 			Tx_count++;
 		}
-		
+
 		// if message transfer complete
 		if(Tx_count >= MAX){
-			USART2->CR1 &= ~USART_CR1_TXEIE; // disable TX interrupt
+			NVIC_DisableIRQ(USART2_IRQn);	// disable usart2 handler
 		}
 	}
-
 }
 ```
 
