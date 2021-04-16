@@ -47,7 +47,7 @@ int main(void){
 }
 ```
 
-### 2) USART2 initialization. Enable USART2 recieve interrupt.
+### 2) USART2 initialization. Enable USART2 receive/transmit interrupts.
 
 ```c
 static void MX_USART2_UART_Init(void)
