@@ -4,7 +4,7 @@ Communicate between microcontroller and PC using UART. With and without HAL driv
 
 ## Universal Asynchronous Reciever-Transmitter (UART):
 
-Unlike SPI which is a communication protocol, the UART is a physical circuit inside the STM32 microcontroller. UART allows for asynchronous communication between two devices using two wires. In this project, we cover UART via polling, interrupt, DMA, and DMA RTOS.
+Unlike SPI which is a communication protocol, the UART is a physical circuit inside the STM32 microcontroller. UART allows for asynchronous communication between two devices using two wires. In this project, we cover UART via polling, interrupt, and DMA.
 
 ![image](https://user-images.githubusercontent.com/62213019/114249000-214b1680-994e-11eb-86c1-71296ad0ecb9.png)
 
